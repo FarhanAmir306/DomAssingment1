@@ -5,7 +5,12 @@ const submitTodo = document.querySelector('#submitTodo');
 const todoList = document.querySelector('#todoList');
 const form = document.querySelector('form');
 
-const totaltask = document.querySelector('#totalTasks');
+let totaltask = document.querySelector('#totalTasks');
+let compleatetask = document.querySelector('#completedTasks');
+let remainingtask = document.querySelector('#remainingTasks');
+totaltask.textContent = 0
+compleatetask.textContent = 0
+remainingtask.textContent = 0
 
 submitTodo.addEventListener('click', (e) => {
     e.preventDefault();
@@ -18,14 +23,15 @@ submitTodo.addEventListener('click', (e) => {
 let todoArray = [];
 function createTodoElement(text){
     const ul = document.querySelector('#todoList');
+
     const numli = document.createElement('li');
     numli.innerHTML = `<h1>${todoArray.length + 1}</h1>`;
-    ul.appendChild(numli);
 
     const todoElement = document.createElement('li');
     todoElement.textContent = text;
     todoArray.push(todoElement); 
-    totaltask.innerHTML = `<span class="text-4xl pt-3 text-purple-500">${todoArray.length}</span>`
+    totaltask.textContent = todoArray.length
+   
     
     const dateli = document.createElement('li');
     const dateTime = new Date(); //get the current date and time
@@ -44,29 +50,55 @@ function createTodoElement(text){
     taskedit.className = 'px-8 py-3 rounded-xl font-bold bg-yellow-600 hover:bg-red-500 mx-10';
     taskedit.textContent = 'Edit';
 
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'ml-4';
+    checkbox.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            todoElement.classList.add('line-through');
+        } else {
+            todoElement.classList.remove('line-through');
+        }
+        
+        compleatetask.textContent = todoArray.filter(todo => todo.classList.contains('line-through')).length;
+        let total = parseInt(totaltask.textContent);
+        let complete = parseInt(compleatetask.textContent);
+        remainingtask.textContent = total - complete;
+    });
+
+    let total = parseInt(totaltask.textContent);
+    let complete = parseInt(compleatetask.textContent);
+    remainingtask.textContent = total - complete;
+
     ul.appendChild(numli);
     ul.appendChild(todoElement);
     ul.appendChild(dateli);
     ul.appendChild(taskdelete);
     ul.appendChild(taskedit);
+    ul.appendChild(checkbox);
 
+    
+    
 
     taskdelete.addEventListener('click',(e)=>{
         e.stopPropagation();
-        todoElement.remove();
         numli.remove()
+        todoElement.remove();
         dateli.remove();
         taskdelete.remove();
         taskedit.remove();
         totaltask.remove()
+        checkbox.remove();
     })
 
     taskedit.addEventListener('click',(e)=>{
         e.stopPropagation();
-        const newText = prompt('Enter new text');
-        todoElement.textContent = newText;
+        const newText = prompt('Enter new text',todoElement.textContent);
+        if(newText){
+            todoElement.textContent = newText;
+        }
         
-    })
+    });
 
 
 }
