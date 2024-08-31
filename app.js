@@ -23,6 +23,7 @@ submitTodo.addEventListener('click', (e) => {
 let todoArray = [];
 function createTodoElement(text){
     const ul = document.querySelector('#todoList');
+    
 
     const numli = document.createElement('li');
     numli.innerHTML = `<h1>${todoArray.length + 1}</h1>`;
@@ -41,13 +42,13 @@ function createTodoElement(text){
     const taskdelete = document.createElement('button');
     taskdelete.type = 'submit';
     taskdelete.id = 'deletebtn';
-    taskdelete.className = 'px-8 py-3 rounded-xl font-bold bg-red-600 hover:bg-green-500 mx-10';
+    taskdelete.className = 'px-12 py-2 rounded font-bold bg-red-600 hover:bg-green-500 ';
     taskdelete.textContent = 'Delete';
 
     const taskedit = document.createElement('button');
     taskedit.type = 'submit';
     taskedit.id = 'editbtn';
-    taskedit.className = 'px-8 py-3 rounded-xl font-bold bg-yellow-600 hover:bg-red-500 mx-10';
+    taskedit.className = 'px-12 py-2  rounded font-bold bg-yellow-600 hover:bg-green-500 ';
     taskedit.textContent = 'Edit';
 
     const checkbox = document.createElement('input');
@@ -69,6 +70,8 @@ function createTodoElement(text){
     let total = parseInt(totaltask.textContent);
     let complete = parseInt(compleatetask.textContent);
     remainingtask.textContent = total - complete;
+
+   
 
     ul.appendChild(numli);
     ul.appendChild(todoElement);

@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 
-.grad-bg{
-    background: hsla(259, 84%, 78%, 1);
-    color:#231a19;
-}
-.todo-bg{
-    background: #070F2B;
+body{
+    background-image:url(./image/bg3.avif);
 }
